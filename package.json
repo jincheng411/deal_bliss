@@ -6,7 +6,7 @@
   "scripts": {
     "server": "npx nodemon server/index.js",
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
