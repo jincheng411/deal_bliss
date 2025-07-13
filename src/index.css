@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy-50: #f0f4fa;
+  --color-navy-100: #d9e2f5;
+  --color-navy-200: #b3c5eb;
+  --color-navy-300: #8da8e1;
+  --color-navy-400: #668bd7;
+  --color-navy-500: #406ecd;
+  --color-navy-600: #2d50a3;
+  --color-navy-700: #1E3A8A;
+  --color-navy-800: #152c6b;
+  --color-navy-900: #0c1d4c;
+
+  --color-coral-50: #fff2f0;
+  --color-coral-100: #ffdcd8;
+  --color-coral-200: #ffbab1;
+  --color-coral-300: #ff978a;
+  --color-coral-400: #ff7462;
+  --color-coral-500: #F97066;
+  --color-coral-600: #e54b44;
+  --color-coral-700: #c32e30;
+  --color-coral-800: #a12532;
+  --color-coral-900: #891f2f;
+}
+
+@layer base {
+  body {
+    @apply text-gray-800 bg-gray-50 font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}

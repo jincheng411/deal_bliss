@@ -1,0 +1,63 @@
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+drop table if exists deal_categories;
+drop table if exists deals;
+drop table if exists categories;
+
+
+CREATE TABLE categories (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    slug VARCHAR(100) NOT NULL UNIQUE
+);
+
+
+CREATE TABLE deals (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    original_price DECIMAL(10, 2) NOT NULL,
+    sale_price DECIMAL(10, 2) NOT NULL,
+    discount_percentage INT NOT NULL,
+    image_url TEXT,
+    featured BOOLEAN DEFAULT FALSE,
+    deal_of_day BOOLEAN DEFAULT FALSE,
+    url VARCHAR(255),
+    editor_note TEXT,
+    coupon_code VARCHAR(50)
+);
+
+
+CREATE TABLE deal_categories (
+  deal_id UUID REFERENCES deals(id) ON DELETE CASCADE,
+  category_id INT REFERENCES categories(id) ON DELETE CASCADE,
+  PRIMARY KEY (deal_id, category_id)
+);
+
+
+
+INSERT INTO categories (id, name, slug) VALUES
+(1, 'Electronics', 'electronics'),
+(2, 'Home & Kitchen', 'home-kitchen'),
+(3, 'Fashion', 'fashion'),
+(4, 'Beauty', 'beauty'),
+(5, 'Sports & Outdoors', 'sports-outdoors'),
+(6, 'Baby & Kids', 'baby-kids'),
+(7, 'Health', 'health');
+
+
+INSERT INTO deals (title, description, original_price, sale_price, discount_percentage, image_url, featured, deal_of_day, url) VALUES
+('Apple AirPods Pro (2nd Generation)', 'Active Noise Cancellation, Transparency mode, Spatial Audio with dynamic head tracking', 249.99, 189.99, 24, 'https://images.pexels.com/photos/3780681/pexels-photo-3780681.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, TRUE, '#'),
+('Ninja AF101 Air Fryer', '4-Quart capacity, wide temperature range, dishwasher-safe parts', 119.99, 69.99, 42, 'https://images.pexels.com/photos/3848886/pexels-photo-3848886.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, FALSE, '#'),
+('Instant Pot Duo 7-in-1 Electric Pressure Cooker', '6 Quart, 13 One-Touch Programs', 99.95, 79.99, 20, 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('Samsung Galaxy Tab A8', '10.5" LCD Screen, 32GB Storage, Android 11', 229.99, 149.99, 35, 'https://images.pexels.com/photos/1092671/pexels-photo-1092671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, FALSE, '#'),
+('Philips Sonicare ProtectiveClean 4100 Electric Toothbrush', 'Rechargeable with pressure sensor and 2 week battery life', 69.99, 39.95, 43, 'https://images.pexels.com/photos/3373740/pexels-photo-3373740.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('Bose QuietComfort 45 Headphones', 'Wireless Bluetooth headphones with up to 24 hours of battery life', 329.00, 279.00, 15, 'https://images.pexels.com/photos/577769/pexels-photo-577769.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, FALSE, '#'),
+('Columbia Men''s Watertight II Jacket', 'Waterproof & breathable rain jacket with adjustable hood', 79.99, 49.99, 38, 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('Fitbit Charge 5 Advanced Fitness Tracker', 'Built-in GPS, Heart Rate, Sleep Tracking, 7-day battery', 179.95, 129.95, 28, 'https://images.pexels.com/photos/4482896/pexels-photo-4482896.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('COSORI Air Fryer Max XL', '5.8-Quart Electric Hot Oven with 13 Cooking Functions', 119.99, 85.99, 28, 'https://images.pexels.com/photos/616404/pexels-photo-616404.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, FALSE, '#'),
+('Coleman Sundome Tent', '4-Person Dome Tent with WeatherTec System', 99.99, 64.99, 35, 'https://images.pexels.com/photos/6271620/pexels-photo-6271620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('Vitamix 5200 Blender', 'Professional-Grade, Self-Cleaning 64 oz Container', 549.99, 399.95, 27, 'https://images.pexels.com/photos/775031/pexels-photo-775031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', FALSE, FALSE, '#'),
+('LEGO Star Wars The Mandalorian Set', 'The Razor Crest 75292 Building Kit (1,023 Pieces)', 129.99, 89.99, 31, 'https://images.pexels.com/photos/1670045/pexels-photo-1670045.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', TRUE, FALSE, '#');
+
