@@ -6,9 +6,10 @@
   "scripts": {
     "server": "npx nodemon server/index.js",
     "dev": "vite",
-    "build": "vite build && npm run build",
+    "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npm run build && npm run server"
   },
   "dependencies": {
     "cors": "^2.8.5",
